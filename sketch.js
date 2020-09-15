@@ -3,32 +3,40 @@ var wall;
 var speed;
 var weight;
 var position;
-var track;
+var track, bg, wallimg, carimg;
+
+function preload(){
+  wallimg = loadImage("wall.png");
+  carimg = loadImage("thecar.png");
+  bg = loadImage("bg2.jpg");
+}
 
 function setup() {
   createCanvas(4000,1600);
   car = createSprite(50,100,50,50);
-  car.shapeColor = "violet";
+  car.addImage(carimg);
+  car.scale = 0.5;
   car2 = createSprite(50,350,50,50);
-  car2.shapeColor = "blue";
+  car2.addImage(carimg);
   car2.visible = false;
+  car2.scale = 0.5;
   car3 = createSprite(50,600,50,50);
-  car3.shapeColor = "purple";
+  car3.addImage(carimg);
   car3.visible = false;
+  car3.scale = 0.5;
 
   position = random(3000,4000);
   position2 = random(3000,4000);
   position3 = random(3000,4000);
 
   wall = createSprite(3000,100,60,100);
-  wall.shapeColor = "gray";
-
+  wall.addImage(wallimg);
   wall2 = createSprite(3000,350,60,100);
-  wall2.shapeColor = "gray";
+  wall2.addImage(wallimg);
   wall2.visible = false;
 
   wall3 = createSprite(3000,600,60,100);
-  wall3.shapeColor = "gray";
+  wall3.addImage(wallimg);
   wall3.visible = false;
   
   speed = random(55,90);
@@ -43,10 +51,10 @@ function setup() {
 }
 
 function draw() {
-  background("black");  
+  background(bg);  
   camera.position.x = 3000;
-  if(wall.x - car.x < (car.width + wall.width)/2)
-  {
+ 
+    if(car.x >= 2860){
   
     car.velocityX = 0;
     car2.velocityX = speed2/1.6666666666;
@@ -70,8 +78,7 @@ function draw() {
     }
   }
 
-  if(wall2.x - car2.x < (car2.width + wall2.width)/2)
-  {
+    if(car2.x >= 2870){
 
     car2.velocityX = 0;
     car3.velocityX = speed3/1.6666666666;
@@ -95,8 +102,8 @@ function draw() {
     }
   }
 
-  if(wall3.x - car3.x < (car3.width + wall3.width)/2)
-  {
+    if(car3.x >= 2860){
+
     car3.velocityX = 0;
     var deformation3 = 0.5 * weight3 * speed3 * speed3/22509;
     
@@ -112,6 +119,9 @@ function draw() {
     {
       car3.shapeColor = color(0,255,0);
     }
+      textSize(70);
+      fill("white");
+      text("Game Over",2150,10);
   }
 
   for(i = 0; i < 5000; i = i + 50){
